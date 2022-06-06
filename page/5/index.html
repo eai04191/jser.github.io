@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JSer.info</title>
+    <meta name="description" content="JavaScriptの最新情報を紹介する週刊ブログ">
+    
+    <meta name="keywords" content="JavaScript,ブラウザ,ECMAScript" />
+    
+    <meta name="author" content="azu">
+    
+    
+    
+
+    
+    <link rel="canonical" href="https://jser.info/page/5/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://jser.info/rss/">
+    <link rel="apple-touch-icon" sizes="57x57" href="/public/img/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/public/img/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/public/img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/img/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/public/img/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/public/img/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/public/img/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/public/img/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/img/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/public/img/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-16x16.png" sizes="16x16">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/public/img/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Preload Hero Images: Improves LCP-->
+    <link rel="preload" as="image" href="/public/img/logo.png"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/index.css">
+    <!-- JavaScript -->
+    <script src="/public/js/switch-alt-link.js" async defer></script>
+    <!-- Open graph tags -->
+<meta name="twitter:card" content="JavaScriptの最新情報を紹介する週刊ブログ" />
+<meta name="twitter:site" content="@jser_info" />
+
+
+<meta property="og:title" content="JSer.info">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jser.info/page/5/">
+<meta property="og:image" content="https://jser.info/media/logo.png">
+
+<meta property="og:description" content="JavaScriptの最新情報を紹介する週刊ブログ">
+<meta property="og:site_name" content="JSer.info">
+
+
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q66PHF829Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q66PHF829Y');
+</script>
+
+</head>
+
+
+<body>
+<header>
+    <a href="https://github.com/jser/jser.github.io" class="github-ribbon">
+        <img style="position: absolute; top: 0; right: 0; border: 0;"
+             src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+             alt="Fork me on GitHub"
+             data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
+    <div class="global-header">
+    <h1 class="site-title"><a href="/" title="JSer.info">
+        <!-- 3:1 aspect ratio-->
+        <img
+            alt=""
+            src="/public/img/logo.png"
+            width="518"
+            height="172"
+    /></a></h1>
+    <h2 class="site-description">JavaScriptの最新情報を紹介する週刊ブログ</h2>
+    <nav class="lang-menu">
+        <ul>
+            <li><a href="/" data-alt-href="/page/5/">日本語</a></li>
+            <li><a href="/ko/" data-alt-href="/ko/page/5/">한국어</a></li>
+        </ul>
+        
+        <div>
+            <p>リアルタイム版は<a href="https://realtime.jser.info/" title="Realtime JSer.info">Realtime JSer.info</a></p>
+        </div>
+        
+    </nav>
+</div>
+
+</header>
+<div class="content-wrapper">
+    <article>
+        <div class="page-content">
+            
+
+<div class="home">
+
+    <h1>投稿一覧</h1>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/09/14/node-v16.9.0corepack-spook.jssame-site/">2021-09-14のJS: Node v16.9.0(Corepack)、Spook.js(Same-Siteでのサイドチャネル攻撃)</a></h1>
+            </header>
+            <p>JSer.info #557 - Node.js 16.9.0リリース。
+
+
+Node v16.9.0 (Current) | Node.js
+
+
+プロジェクトごとにnpm/yarn/pnpmなどのパッケージマネージャを切り替えて利用...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年09月14日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/09/07/electron-14.0.0-node-fetch-3.0.0-replace-jquery/">2021-09-07のJS: Electron 14.0.0、node-fetch 3.0.0、replace-jquery</a></h1>
+            </header>
+            <p>JSer.info #556 - Electron 14.0.0がリリースされました。
+
+
+Electron 14.0.0 | Electron Blog
+
+
+依存がそれぞれChromium 93、Node.js 14.17.0、V8...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年09月07日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/08/31/typescript-4.4-pagespeed-insightslabfield-data-packemon/">2021-08-31のJS: TypeScript 4.4、PageSpeed InsightsのLab/Field data、Packemon(ライブラリ向けビルドツール)</a></h1>
+            </header>
+            <p>JSer.info #555 - TypeScript 4.4が正式にリリースされました。
+
+
+Announcing TypeScript 4.4 | TypeScript
+
+
+Control Flow Analysisの改善、Ind...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年08月31日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/08/25/browser-compat-datadeno-mobile-first-and-desktop-first-create-react-appnext.js/">2021-08-25のJS: browser-compat-dataにDenoを追加、Mobile First and Desktop First、create-react-appからNext.jsに移行</a></h1>
+            </header>
+            <p>JSer.info #554 - MDNなどが利用するブラウザ実装の互換データを管理している @mdn/browser-compat-data 4.0.0がリリースされました。
+
+
+Release v4.0.0 · mdn/brows...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年08月25日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/08/17/next.js-11.1-rails-7import-mapsjs/">2021-08-17のJS: Next.js 11.1、Rails 7で予定されているimport mapsベースのJSライブラリの利用</a></h1>
+            </header>
+            <p>JSer.info #553 - Next.js 11.1 がリリースされました。
+
+
+Blog - Next.js 11.1 | Next.js
+
+
+オープンリダイレクタの脆弱性が修正されています。
+experimental.esm...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年08月17日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/08/10/pnpm-6.12.0-webpack-5.49.0import-http-resource-vue-3.2/">2021-08-10のJS: pnpm 6.12.0、webpack 5.49.0(import http resource)、Vue 3.2</a></h1>
+            </header>
+            <p>JSer.info #552 - パッケージマネージャであるpnpm 6.12.9がリリースされました。
+
+
+Release v6.12.0 · pnpm/pnpm
+
+
+pnpm 6.12.0ではpnpm env use --glob...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年08月10日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/08/03/yarn3-chrome93-beta-deprecate-alert/">2021-08-03のJS: Yarn 3.0、Chrome 93 beta、cross origin iframeでのalert/prompt/confirmを削除</a></h1>
+            </header>
+            <p>JSer.info #551 - Yarn 3.0がリリースされました。
+
+
+Yarn 3.0 🚀🤖 Performances, ESBuild, Better Patches, ... - DEV Community 👩‍💻👨‍💻
+...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年08月03日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/07/27/vscode-js-debug-privacy-sandbox-timeline/">2021-07-27のJS: vscode-js-debug、 Privacy Sandbox Timeline、小さなブラウザの作り方</a></h1>
+            </header>
+            <p>JSer.info #550 - vscode-js-debugはVSCodeからブラウザのデバッガーに接続し、JavaScriptをデバッグするVSCode拡張です。
+このvscode-js-debugがVScodeにbundleさ...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年07月27日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/07/20/node.js-16.5.0whatwg-stream-npm-7.20.0npm-pkg-ember-4/">2021-07-20のJS: Node.js 16.5.0(WHATWG Stream)、npm 7.20.0(`npm pkg`)、Ember 4のロードマップ</a></h1>
+            </header>
+            <p>JSer.info #549 - Node.js 16.5.0がリリースされました。
+
+
+Node v16.5.0 (Current) | Node.js
+
+
+16.5.0では試験的に、WHATWGで仕様策定されウェブブラウザに実装さ...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年07月20日</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="article">
+            <header>
+                <h1><a href="/2021/07/14/firefox-90-npm-audit-access-guide/">2021-07-14のJS: Firefox 90、npm auditの問題、Access Guide</a></h1>
+            </header>
+            <p>JSer.info #548 - Firefox 90がリリースされました。
+
+
+Firefox 90.0, See All New Features, Updates and Fixes
+Firefox 90 for develop...</p>
+            <div class="post-meta">
+                <span class="post-date">2021年07月14日</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pagination links -->
+    <nav>
+        <div class="pagination">
+            
+                
+                <a href="/page/4/" class="previous">新しい記事へ</a>
+                
+            
+            <span class="page_number ">Page: 5 of 65</span>
+            
+            <a href="/page/6/" class="next" rel="next">古い記事へ</a>
+            
+        </div>
+    </nav>
+</div>
+
+        </div>
+    </article>
+    <aside>
+        <div class="page-sidebar">
+    <div class="profile">
+        <a href="https://twitter.com/azu_re" title="Twitter: azu_re">
+            <img src="/public/img/azu.png" alt=""></a>
+
+        <h2><a href="https://twitter.com/azu_re">azu</a></h2>
+    </div>
+    
+    <div class="social-icons">
+        <a class="social-icon__twitter" href="https://twitter.com/jser_info" title="Twitter">
+            <img src="/public/svg/twitter.svg" alt=""
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__github" href="https://github.com/jser" title="GitHub">
+            <img src="/public/svg/github.svg" alt=""
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__rss" href="https://jser.info/rss/" title="RSS Feed">
+            <img src="/public/svg/feed.svg" alt="" width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__feedly" href='https://feedly.com/i/subscription/feed%2Fhttps://jser.info/rss/'
+           target='blank'>
+            <img id='feedlyFollow'
+                 src='https://s3.feedly.com/img/follows/feedly-follow-square-flat-green_2x.png'
+                 alt=''
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+    </div>
+    
+    <div class="slack-bar">
+        <a class="social-icon__slack"
+           href='https://get.slack.help/hc/ja/articles/218688467-Slack-%E3%81%AB-RSS-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%89%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'
+           target='blank'>
+            <img src="/public/svg/slack.svg" alt="" width="50" height="50" loading="lazy"/>
+            SlackにRSSを追加する
+        </a>
+    </div>
+    
+    <nav>
+        <div class="search-bar">
+            <div class="search-and-submit">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <input type="search" name="q" placeholder="Enter Search"/>
+                    <input type="hidden" name="q" value="site:jser.info">
+                    <button type="submit">
+                        <span class="drawic drawic-search"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="side-menu">
+            <h1>ページ</h1>
+            <ul>
+                <li><a class="page-link" href="https://jser.info/about/">JSer.infoについて</a></li>
+                <li><a class="page-link" href="https://jser.info/support/">Support</a></li>
+                <li><a class="github-button" href="https://github.com/sponsors/azu" data-icon="octicon-heart"
+                       data-size="large"
+                       aria-label="Sponsor @azu on GitHub">GitHub Sponsors</a></li>
+                <script async defer src="https://buttons.github.io/buttons.js"></script>
+            </ul>
+        </div>
+        <div class="side-menu">
+            <h1>最近の投稿</h1>
+            <ul>
+                
+                
+                <li><a class="page-link" href="/2022/06/06/angular-14-cypress-10-vue-2.7-a/">2022-06-06のJS: Angular 14、Cypress 10、Vue 2.7 α</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/06/01/lerna-5.0.0-typescript-4.7-wireit/">2022-06-01のJS: Lerna 5.0.0、TypeScript 4.7、wireit</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/24/deno-1.22-storybook-6.5webpack-lazy-compilation-next.js-layouts-rfc/">2022-05-24のJS: Deno 1.22、Storybook 6.5(webpack Lazy Compilation)、Next.js Layouts RFC</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/17/solid-v1.4.0-playwright-v1.22.0-safari-15.5/">2022-05-17のJS: Solid v1.4.0、playwright v1.22.0、Safari 15.5</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/11/node-v18.1.0node-test-state-of-css-2022-performance-insights/">2022-05-11のJS: Node v18.1.0(node --test)、State of CSS 2022、Performance insights</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/03/node.js-12eol-pnpm-v7.0.0-mocha-v10.0.0-cypress-9.6.0/">2022-05-03のJS: Node.js 12はEOLとなりサポート終了、pnpm v7.0.0、Mocha v10.0.0、Cypress 9.6.0</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/04/26/redux-v4.2.0-node.js-18-jest-28/">2022-04-26のJS: Redux v4.2.0、Node.js 18、Jest 28</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/04/18/lexical-react-testing-library-v13.1.0-dialog-component/">2022-04-18のJS: Lexical、React Testing Library v13.1.0、Dialog componentの作成</a></li>
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    </aside>
+</div>
+<footer>
+    <div class="page-footer">
+    <div class="copyright-footer">
+        <div class="copyright">
+            <p>JSer.info is maintained by @<a href="https://twitter.com/azu_re"
+                                              title="azu (azu_re) on Twitter">azu_re</a>.
+            </p>
+        </div>
+        <div class="cc-license">
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+                <img alt="Creative commons LICENSE"
+                     style="border-width:0"
+                     width="88"
+                     height="31"
+                     src="https://i.creativecommons.org/l/by/4.0/88x31.png"
+                     loading="lazy"></a>
+        </div>
+    </div>
+</div>
+
+</footer>
+<style>
+    @media screen and (max-width: 1000px) and (max-height: 800px) {
+        .ping-show-button {
+            display: none !important;
+        }
+    }
+
+    .ping-show-button {
+        color: #000000;
+        z-index: 100;
+        position: fixed;
+        bottom: 0;
+        right: 10px;
+        padding: 1em 3em;
+        background-color: #ffffff;
+        border: 1px solid #868686;
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+        font-size: 12px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<a 
+    class="ping-show-button"
+    href="https://join.slack.com/t/jserinfo/shared_invite/zt-g2shzp7o-f_tj6OaphCAFw5Qlt2Jw0A"
+    ga-on="click"
+    ga-event-category="Slack"
+    ga-event-action="click"
+><img src="/public/svg/slack.svg" alt="" width="28" height="28" /><span>JSer.info Slackに参加する</span></a>
+
+</body>
+</html>

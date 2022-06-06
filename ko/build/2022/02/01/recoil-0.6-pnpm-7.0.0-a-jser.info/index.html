@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>2022-02-01のJS: Recoil 0.6、pnpm 7.0.0 α、JSer.infoアンケート結果の公開 - JSer.info</title>
+    <meta name="description" content="JSer.info #577 - Recoil 0.6がリリースされました">
+    
+    <meta name="keywords" content="TypeScript,React,cheatsheet,photoshop,webpack" />
+    
+    <meta name="author" content="azu">
+    
+      <meta content="2022-02-01T12:06:44+09:00" property="article:published_time">
+      <meta content="https://jser.info/about/" property="article:author">
+    
+    
+      
+      <meta content="JSer" property="article:section">
+      
+    
+    
+      
+      <meta content="TypeScript" property="article:tag">
+      
+      <meta content="React" property="article:tag">
+      
+      <meta content="cheatsheet" property="article:tag">
+      
+      <meta content="photoshop" property="article:tag">
+      
+      <meta content="webpack" property="article:tag">
+      
+    
+
+    
+    <link rel="canonical" href="https://jser.info/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://jser.info/rss/">
+    <link rel="apple-touch-icon" sizes="57x57" href="/public/img/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/public/img/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/public/img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/img/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/public/img/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/public/img/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/public/img/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/public/img/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/img/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/public/img/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-16x16.png" sizes="16x16">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/public/img/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Preload Hero Images: Improves LCP-->
+    <link rel="preload" as="image" href="/public/img/logo.png"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/index.css">
+    <!-- JavaScript -->
+    <script src="/public/js/switch-alt-link.js" async defer></script>
+    <!-- Open graph tags -->
+<meta name="twitter:card" content="JSer.info #577 - Recoil 0.6がリリースされました" />
+<meta name="twitter:site" content="@jser_info" />
+
+
+<meta property="og:title" content="2022-02-01のJS: Recoil 0.6、pnpm 7.0.0 α、JSer.infoアンケート結果の公開">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jser.info/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">
+<meta property="og:image" content="https://jser.info/media/logo.png">
+
+<meta property="og:description" content="JSer.info #577 - Recoil 0.6がリリースされました">
+<meta property="og:site_name" content="JSer.info">
+
+
+
+<meta property="article:published_time" content="2022-02-01T12:06:44+09:00">
+
+<meta property="og:see_also" content="https://jser.info/2022/06/06/angular-14-cypress-10-vue-2.7-a/">
+
+<meta property="og:see_also" content="https://jser.info/2022/06/01/lerna-5.0.0-typescript-4.7-wireit/">
+
+<meta property="og:see_also" content="https://jser.info/2022/05/24/deno-1.22-storybook-6.5webpack-lazy-compilation-next.js-layouts-rfc/">
+
+
+
+
+
+<meta property="article:tag" content="TypeScript">
+
+<meta property="article:tag" content="React">
+
+<meta property="article:tag" content="cheatsheet">
+
+<meta property="article:tag" content="photoshop">
+
+<meta property="article:tag" content="webpack">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q66PHF829Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q66PHF829Y');
+</script>
+
+</head>
+
+
+<body>
+<header>
+    <a href="https://github.com/jser/jser.github.io" class="github-ribbon">
+        <img style="position: absolute; top: 0; right: 0; border: 0;"
+             src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+             alt="Fork me on GitHub"
+             data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
+    <div class="global-header">
+    <h1 class="site-title"><a href="/" title="JSer.info">
+        <!-- 3:1 aspect ratio-->
+        <img
+            alt=""
+            src="/public/img/logo.png"
+            width="518"
+            height="172"
+    /></a></h1>
+    <h2 class="site-description">JavaScriptの最新情報を紹介する週刊ブログ</h2>
+    <nav class="lang-menu">
+        <ul>
+            <li><a href="/" data-alt-href="/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">日本語</a></li>
+            <li><a href="/ko/" data-alt-href="/ko/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">한국어</a></li>
+        </ul>
+        
+        <div>
+            <p>リアルタイム版は<a href="https://realtime.jser.info/" title="Realtime JSer.info">Realtime JSer.info</a></p>
+        </div>
+        
+    </nav>
+</div>
+
+</header>
+<div class="content-wrapper">
+    <article>
+        <div class="page-content">
+            <div class="post">
+    <header>
+        <div class="post-header">
+            <h1><a href="/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">2022-02-01のJS: Recoil 0.6、pnpm 7.0.0 α、JSer.infoアンケート結果の公開</a></h1>
+
+            <div class="pre-post-toolbar">
+                <span class="post-date">2022年02月01日</span>
+                
+                <span class="svg-icon"><img src="/public/svg/github.svg" alt="" /></span>
+                <a class="btn edit-on-github" href="https://github.com/jser/jser.github.io/edit/develop/_i18n/ja/_posts/2022/2022-02-01-recoil-0.6-pnpm-7.0.0-a-jser.info.md"><span class="edit-on-github-label"></span>Edit on GitHub</a>
+                <span class="svg-icon"><img src="/public/svg/git.svg" alt="" /></span>
+                <a class="btn revision-on-github" href="https://github.com/jser/jser.github.io/commits/develop/_i18n/ja/_posts/2022/2022-02-01-recoil-0.6-pnpm-7.0.0-a-jser.info.md"><span class="revision-on-github-label"></span>編集履歴を見る</a>
+            </div>
+
+        </div>
+        <div class="social-buttons">
+            <ul>
+    <!-- Feedly -->
+    
+    <!-- Twitter -->
+    <li class="twitter-button-item">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="jser_info">Tweet</a>
+    </li>
+    
+    <!-- Hatena -->
+    <li>
+        <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-url="https://jser.info/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">
+            <img src="https://b.st-hatena.com/images/entry-button/button-only.gif" alt="はてなブックマークに追加" width="20" height="20" style="border: none">
+        </a>
+    </li>
+    
+    <!-- Pocket -->
+    <li>
+        <a href="https://getpocket.com/save" class="pocket-btn" data-lang="ja" data-save-url="https://jser.info/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/"
+            data-pocket-count="horizontal" data-pocket-align="left">Pocket</a>
+    </li>
+</ul>
+
+        </div>
+    </header>
+    <article class="post-content">
+        <p>JSer.info #577 - Recoil 0.6がリリースされました</p>
+
+<ul>
+<li><a href="https://recoiljs.org/blog/2022/01/28/0.6.0-release/">Recoil 0.6 | Recoil</a></li>
+<li><a href="https://github.com/facebookexperimental/Recoil/releases/tag/0.6.0">Release 0.6.0 · facebookexperimental/Recoil</a></li>
+</ul>
+
+<p>現在ベータ版であるReact 18に対応した変更が含まれています。<br>
+<code>useSyncExternalStore</code>を使うようにする変更やReact 18のStrict Modeの動作に対応しています。</p>
+
+<ul>
+<li><a href="https://github.com/reactwg/react-18/discussions/86">useMutableSource → useSyncExternalStore · Discussion #86 · reactwg/react-18</a></li>
+</ul>
+
+<p>破壊的な変更として、<code>effects_UNSTABLE</code>を<code>effects</code>にリネームといった変更が含まれています。</p>
+
+<p>また、RecoilがStableになるのはいつごろなのかという質問に対して、次のIssueで回答されています。</p>
+
+<blockquote>
+<p>Recoil remains an experimental project as it evolves to support React and its state management. Although we are using Recoil in production at Meta, we keep the project in an experimental status today until we are confident in a solution compatible with all upcoming React features like Concurrent Rendering, Server Components, and Streaming SSR.<br>
+-- <a href="https://github.com/facebookexperimental/Recoil/issues/1495#issuecomment-1018935639">What&#39;s happening in the future of recoil? · Issue #1495 · facebookexperimental/Recoil</a></p>
+</blockquote>
+
+<hr>
+
+<p>npmパッケージ管理ツールのpnpm 7.0.0 αがリリースされています。</p>
+
+<ul>
+<li><a href="https://github.com/pnpm/pnpm/releases/tag/v7.0.0-alpha.0">Release v7.0.0-alpha.0 · pnpm/pnpm</a></li>
+</ul>
+
+<p><code>pnpm</code>コマンドのデフォルトの挙動の変更が中心となっています。<br>
+破壊的な変更として、<code>pnpm -r exec|run|add</code>の対象にRootを含まないように変更、<code>--filter</code>がglobを扱うように変更されています。<br>
+<code>npm run &lt;script&gt;</code>に対して<code>--</code>なしで引数を渡せるように、Side effects cacheがデフォルトで有効化、<code>pnpm dlx</code>のaliasとして<code>pnpx</code>の追加なども含まれています。</p>
+
+<hr>
+
+<p><a href="https://jser.info/2022/01/16/11-years/">JSer.info 11周年</a>で募集していたアンケートの結果を公開しました。<br>
+JSer.infoを読んで初めて知ることがどれぐらいあるかや、どのような人が読んでいるのかについてまとめています。</p>
+
+<p>詳細は次の記事を参照してください。</p>
+
+<ul>
+<li><a href="https://jser.info/2022/01/31/jser-info-11th-suvery-result/">JSer.info 11周年アンケート結果の公開 - JSer.info</a></li>
+</ul>
+
+<hr>
+
+<h1 class="site-genre">ヘッドライン</h1>
+
+<hr>
+
+<h2 id="eslint-v8-8-0-released-eslint-pluggable-javascript-linter">ESLint v8.8.0 released - ESLint - Pluggable JavaScript linter</h2>
+
+<p><a href="https://eslint.org/blog/2022/01/eslint-v8.8.0-released" title="ESLint v8.8.0 released - ESLint - Pluggable JavaScript linter">eslint.org/blog/2022/01/eslint-v8.8.0-released</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">ESLint</span> <span class="jser-tag">ReleaseNote</span></p></p>
+
+<p>ESLint 8.8.0リリース。<br>
+Lint結果に<code>eslint-disable</code>で抑制されたメッセージを取得できる<code>suppressedMessages</code>プロパティの追加</p>
+
+<hr>
+
+<h2 id="recoil-0-6-recoil">Recoil 0.6 | Recoil</h2>
+
+<p><a href="https://recoiljs.org/blog/2022/01/28/0.6.0-release" title="Recoil 0.6 | Recoil">recoiljs.org/blog/2022/01/28/0.6.0-release</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">React</span> <span class="jser-tag">library</span> <span class="jser-tag">ReleaseNote</span></p></p>
+
+<p>Recoil 0.6リリース。<br>
+React 18に対応、<code>useRecoilCallback()</code>のコールバックに<code>refresh</code>関数の追加など。<br>
+破壊的な変更として、<code>effects_UNSTABLE</code>を<code>effects</code>にリネームなど</p>
+
+<ul>
+<li><a href="https://github.com/facebookexperimental/Recoil/releases/tag/0.6.0" title="Release 0.6.0 · facebookexperimental/Recoil">Release 0.6.0 · facebookexperimental/Recoil</a></li>
+</ul>
+
+<hr>
+
+<h2 id="release-v2-0-0-nightwatchjs-nightwatch">Release v2.0.0 · nightwatchjs/nightwatch</h2>
+
+<p><a href="https://github.com/nightwatchjs/nightwatch/releases/tag/v2.0.0" title="Release v2.0.0 · nightwatchjs/nightwatch">github.com/nightwatchjs/nightwatch/releases/tag/v2.0.0</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">E2E</span> <span class="jser-tag">testing</span> <span class="jser-tag">library</span> <span class="jser-tag">ReleaseNote</span></p></p>
+
+<p>Nightwatch 2.0リリース。<br>
+Plugin APIの追加、<code>nightwatch.conf.cjs</code>のサポート、chai expectのアップデート。<br>
+Assertion/Element Command/Mouse ActionsのAPIの追加や<code>--devtools</code>フラグの追加など</p>
+
+<hr>
+
+<h2 id="release-v7-0-0-alpha-0-pnpm-pnpm">Release v7.0.0-alpha.0 · pnpm/pnpm</h2>
+
+<p><a href="https://github.com/pnpm/pnpm/releases/tag/v7.0.0-alpha.0" title="Release v7.0.0-alpha.0 · pnpm/pnpm">github.com/pnpm/pnpm/releases/tag/v7.0.0-alpha.0</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">npm</span> <span class="jser-tag">pnpm</span> <span class="jser-tag">rlee</span></p></p>
+
+<p>pnpm 7.0.0 αリリース。<br>
+破壊的な変更として、<code>pnpm -r exec|run|add</code>の対象にRootを含まないように変更、<code>--filter</code>がglobを扱うように変更。<br>
+<code>npm run &lt;script&gt;</code>に対して<code>--</code>なしで引数を渡せるように、Side effects cacheがデフォルトで有効化、<code>pnpm dlx</code>のaliasとして<code>pnpx</code>の追加など</p>
+
+<hr>
+
+<h2 id="v8-release-v9-9-v8">V8 release v9.9 · V8</h2>
+
+<p><a href="https://v8.dev/blog/v8-release-99" title="V8 release v9.9 · V8">v8.dev/blog/v8-release-99</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">V8</span> <span class="jser-tag">ReleaseNote</span></p></p>
+
+<p>V8 v9.9リリース。<br>
+Intl.Locale APIにプロパティ追加、<code>Intl.supportedValuesOf</code>の追加など</p>
+
+<hr>
+
+<h1 class="site-genre">アーティクル</h1>
+
+<hr>
+
+<h2 id="ember-v4-typescript-support-update">Ember v4 TypeScript Support Update</h2>
+
+<p><a href="https://blog.emberjs.com/ember-v4-typescript-support-update/" title="Ember v4 TypeScript Support Update">blog.emberjs.com/ember-v4-typescript-support-update/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">Ember</span> <span class="jser-tag">TypeScript</span> <span class="jser-tag">article</span></p></p>
+
+<p>EmberのTypeScriptの型定義について。<br>
+現在は<code>@types</code>としてメンテナンスされていて、4.xの対応と変更点について。<br>
+また、TypeScriptの型定義をEmber自体に同梱することについての議論をしているという話。</p>
+
+<ul>
+<li><a href="https://github.com/emberjs/rfcs/pull/724" title="RFC: Official TypeScript support by chriskrycho · Pull Request #724 · emberjs/rfcs">RFC: Official TypeScript support by chriskrycho · Pull Request #724 · emberjs/rfcs</a></li>
+</ul>
+
+<hr>
+
+<h2 id="how-react-server-components-work-an-in-depth-guide">How React server components work: an in-depth guide</h2>
+
+<p><a href="https://blog.plasmic.app/posts/how-react-server-components-work/" title="How React server components work: an in-depth guide">blog.plasmic.app/posts/how-react-server-components-work/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">React</span> <span class="jser-tag">article</span></p></p>
+
+<p>React server components (RSC)の仕組みについての解説記事。<br>
+React server componentsとは何か、コンポーネントのシリアライズの仕組み、コンポーネントの取得とSuspense、RSCのデータ形式などについて</p>
+
+<hr>
+
+<h2 id="how-prime-video-updates-its-app-for-more-than-8-000-device-types-amazon-science">How Prime Video updates its app for more than 8,000 device types - Amazon Science</h2>
+
+<p><a href="https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types" title="How Prime Video updates its app for more than 8,000 device types - Amazon Science">www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">JavaScript</span> <span class="jser-tag">WebAssembly</span> <span class="jser-tag">article</span></p></p>
+
+<p>Prime Videoアプリの特定の部分にWebAssemblyを利用したという話。<br>
+レガシーデバイスやブラウザではWasmが利用できないため、JavaScript VMとWasm VMどちらでも実行できるようにしていて、そのアーキテクチャにどのように移行していったのかについて。</p>
+
+<hr>
+
+<h2 id="100-javascript-typescript-cyberagent-developers-blog">100万行の大規模なJavaScript製システムをTypeScriptに移行するためにやったこと | CyberAgent Developers Blog</h2>
+
+<p><a href="https://developers.cyberagent.co.jp/blog/archives/34364/" title="100万行の大規模なJavaScript製システムをTypeScriptに移行するためにやったこと | CyberAgent Developers Blog">developers.cyberagent.co.jp/blog/archives/34364/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">TypeScript</span> <span class="jser-tag">article</span> <span class="jser-tag">refactoring</span></p></p>
+
+<p>JSDocを使ったTypeScriptへの移行について。<br>
+依存関係を見て優先度をつけてのTypeScript化、<code>checkJs</code>オプションを使ったJavaScriptにJSDocベースの型付け、チームの知識共有についてなど</p>
+
+<hr>
+
+<h1 class="site-genre">サイト、サービス、ドキュメント</h1>
+
+<hr>
+
+<h2 id="typescript-cheat-sheets">TypeScript: Cheat Sheets</h2>
+
+<p><a href="https://www.typescriptlang.org/cheatsheets" title="TypeScript: Cheat Sheets">www.typescriptlang.org/cheatsheets</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">TypeScript</span> <span class="jser-tag">cheatsheet</span></p></p>
+
+<p>TypeScriptの構文や型についてのチートシート。<br>
+Control Flow Analysis、Interface、Type、 Classについて</p>
+
+<hr>
+
+<h2 id="datadog-build-plugin-track-your-build-performances-like-never-before">DataDog/build-plugin: Track your build performances like never before.</h2>
+
+<p><a href="https://github.com/DataDog/build-plugin" title="DataDog/build-plugin: Track your build performances like never before.">github.com/DataDog/build-plugin</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">webpack</span> <span class="jser-tag">bundler</span> <span class="jser-tag">performance</span> <span class="jser-tag">plugin</span></p></p>
+
+<p>どのloader/plugin/依存関係などでビルド時間がかかっているかを表示するwebpackとesbuildのプラグイン。<br>
+Datadogと連携する機能も持っている。</p>
+
+<hr>
+
+<h1 class="site-genre">ソフトウェア、ツール、ライブラリ関係</h1>
+
+<hr>
+
+<h2 id="webtoon-psd-a-lightweight-adobe-photoshop-psd-psb-file-parser-in-typescript-with-zero-dependency-for-webbrowser-and-nodejs">webtoon/psd: A lightweight Adobe Photoshop .psd/.psb file parser in typescript with zero-dependency for WebBrowser and NodeJS</h2>
+
+<p><a href="https://github.com/webtoon/psd" title="webtoon/psd: A lightweight Adobe Photoshop .psd/.psb file parser in typescript with zero-dependency for WebBrowser and NodeJS">github.com/webtoon/psd</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">JavaScript</span> <span class="jser-tag">photoshop</span> <span class="jser-tag">library</span></p></p>
+
+<p>JavaScript製のPSD/PSBファイルパーサ。<br>
+PSDファイルを読み込みPSDの画像とレイヤー情報などを取得、トラバース処理などができる。</p>
+
+<hr>
+
+<h1 class="site-genre">書籍関係</h1>
+
+<hr>
+
+<h2 id="learning-typescript">Learning TypeScript</h2>
+
+<p><a href="https://learning.oreilly.com/library/view/learning-typescript/9781098110321/" title="Learning TypeScript">learning.oreilly.com/library/view/learning-typescript/9781098110321/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">TypeScript</span> <span class="jser-tag">book</span></p></p>
+
+<p>2022年9月発売予定<br>
+TypeScriptの入門書</p>
+
+<hr>
+
+    </article>
+
+    <div class="post-post-toolbar">
+        <span class="svg-icon"><img src="/public/svg/github.svg" alt="" /></span>
+        <a class="btn edit-on-github"
+            href="https://github.com/jser/jser.github.io/edit/develop/_i18n/ja/_posts/2022/2022-02-01-recoil-0.6-pnpm-7.0.0-a-jser.info.md"><span
+                class="edit-on-github-label"></span>この記事へ修正リクエストをする</a>
+        <nav>
+            <span class="svg-icon"><img src="/public/svg/slack.svg" alt="" /></span>
+            <a class="btn"
+                href="https://join.slack.com/t/jserinfo/shared_invite/zt-g2shzp7o-f_tj6OaphCAFw5Qlt2Jw0A"><span
+                    class="join-to-slack"></span>JSer.info Slackに参加する</a>
+        </nav>
+        
+        <nav>
+            <span class="svg-icon"><img src="/public/svg/favorite.svg" alt="" /></span>
+            <span>JSer.infoへ記事を紹介したい場合は<a href="https://jser.info/support/">Pingで紹介</a></span>
+        </nav>
+        
+        <nav class="tags" id="js-post-tags"
+            data-post-tags='["TypeScript","React","cheatsheet","photoshop","webpack"]'>
+            <span><span class="svg-icon"><img src="/public/svg/tag.svg"
+                        alt="" /></span>タグ:</span>
+            <ul>
+                
+                <li>TypeScript</li>
+                
+                <li>React</li>
+                
+                <li>cheatsheet</li>
+                
+                <li>photoshop</li>
+                
+                <li>webpack</li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="social-buttons post-content">
+    <ul>
+    <!-- Feedly -->
+    
+    <!-- Twitter -->
+    <li class="twitter-button-item">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="jser_info">Tweet</a>
+    </li>
+    
+    <!-- Hatena -->
+    <li>
+        <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-url="https://jser.info/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/">
+            <img src="https://b.st-hatena.com/images/entry-button/button-only.gif" alt="はてなブックマークに追加" width="20" height="20" style="border: none">
+        </a>
+    </li>
+    
+    <!-- Pocket -->
+    <li>
+        <a href="https://getpocket.com/save" class="pocket-btn" data-lang="ja" data-save-url="https://jser.info/2022/02/01/recoil-0.6-pnpm-7.0.0-a-jser.info/"
+            data-pocket-count="horizontal" data-pocket-align="left">Pocket</a>
+    </li>
+</ul>
+
+
+    <iframe src="https://github.com/sponsors/azu/card" title="Sponsor azu" height="200" width="600" style="border: 0;"
+        loading="lazy"></iframe>
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+<script async type="text/javascript" src="/public/js/show-disqus.js"></script>
+<script>
+    (function (w, d) {
+        var s, e = d.getElementsByTagName("script")[0],
+            a = function (u, f) {
+                if (!d.getElementById(f)) {
+                    s = d.createElement("script");
+                    s.async = true;
+                    s.src = u;
+                    e.parentNode.insertBefore(s, e);
+                }
+            };
+        a("https://b.st-hatena.com/js/bookmark_button_wo_al.js");
+        a("https://platform.twitter.com/widgets.js");
+        a("https://widgets.getpocket.com/v1/j/btn.js?v=1");
+    })(window, document);
+</script>
+<div class="social-buttons post-content">
+    <h3 class="sponsors-title">JSer.info Sponsors</h3>
+
+<p class="sponsors-description">
+
+    <b>JSer.info Sponsors</b>は<a href="https://github.com/sponsors/azu" aria-label="Sponsor @azu on GitHub">GitHub Sponsors</a>としてJSer.infoを支援してくれているひとたちです。
+
+</p>
+<div class="sponsors-list">
+    <!-- Sponsor for https://github.com/sponsors/azu -->
+    <div class="sponsors-listItem">
+        <a href="https://twitter.com/cybozu" title="Cybozu, Inc." target="_blank" rel="noopener">
+            <img src="https://github.com/cybozu-sponsorship.png" alt="" width="64" height="64" loading="lazy"/>
+        </a>
+    </div>
+</div>
+
+</div>
+
+        </div>
+    </article>
+    <aside>
+        <div class="page-sidebar">
+    <div class="profile">
+        <a href="https://twitter.com/azu_re" title="Twitter: azu_re">
+            <img src="/public/img/azu.png" alt=""></a>
+
+        <h2><a href="https://twitter.com/azu_re">azu</a></h2>
+    </div>
+    
+    <div class="social-icons">
+        <a class="social-icon__twitter" href="https://twitter.com/jser_info" title="Twitter">
+            <img src="/public/svg/twitter.svg" alt=""
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__github" href="https://github.com/jser" title="GitHub">
+            <img src="/public/svg/github.svg" alt=""
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__rss" href="https://jser.info/rss/" title="RSS Feed">
+            <img src="/public/svg/feed.svg" alt="" width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__feedly" href='https://feedly.com/i/subscription/feed%2Fhttps://jser.info/rss/'
+           target='blank'>
+            <img id='feedlyFollow'
+                 src='https://s3.feedly.com/img/follows/feedly-follow-square-flat-green_2x.png'
+                 alt=''
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+    </div>
+    
+    <div class="slack-bar">
+        <a class="social-icon__slack"
+           href='https://get.slack.help/hc/ja/articles/218688467-Slack-%E3%81%AB-RSS-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%89%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'
+           target='blank'>
+            <img src="/public/svg/slack.svg" alt="" width="50" height="50" loading="lazy"/>
+            SlackにRSSを追加する
+        </a>
+    </div>
+    
+    <nav>
+        <div class="search-bar">
+            <div class="search-and-submit">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <input type="search" name="q" placeholder="Enter Search"/>
+                    <input type="hidden" name="q" value="site:jser.info">
+                    <button type="submit">
+                        <span class="drawic drawic-search"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="side-menu">
+            <h1>ページ</h1>
+            <ul>
+                <li><a class="page-link" href="https://jser.info/about/">JSer.infoについて</a></li>
+                <li><a class="page-link" href="https://jser.info/support/">Support</a></li>
+                <li><a class="github-button" href="https://github.com/sponsors/azu" data-icon="octicon-heart"
+                       data-size="large"
+                       aria-label="Sponsor @azu on GitHub">GitHub Sponsors</a></li>
+                <script async defer src="https://buttons.github.io/buttons.js"></script>
+            </ul>
+        </div>
+        <div class="side-menu">
+            <h1>最近の投稿</h1>
+            <ul>
+                
+                
+                <li><a class="page-link" href="/2022/06/06/angular-14-cypress-10-vue-2.7-a/">2022-06-06のJS: Angular 14、Cypress 10、Vue 2.7 α</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/06/01/lerna-5.0.0-typescript-4.7-wireit/">2022-06-01のJS: Lerna 5.0.0、TypeScript 4.7、wireit</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/24/deno-1.22-storybook-6.5webpack-lazy-compilation-next.js-layouts-rfc/">2022-05-24のJS: Deno 1.22、Storybook 6.5(webpack Lazy Compilation)、Next.js Layouts RFC</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/17/solid-v1.4.0-playwright-v1.22.0-safari-15.5/">2022-05-17のJS: Solid v1.4.0、playwright v1.22.0、Safari 15.5</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/11/node-v18.1.0node-test-state-of-css-2022-performance-insights/">2022-05-11のJS: Node v18.1.0(node --test)、State of CSS 2022、Performance insights</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/03/node.js-12eol-pnpm-v7.0.0-mocha-v10.0.0-cypress-9.6.0/">2022-05-03のJS: Node.js 12はEOLとなりサポート終了、pnpm v7.0.0、Mocha v10.0.0、Cypress 9.6.0</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/04/26/redux-v4.2.0-node.js-18-jest-28/">2022-04-26のJS: Redux v4.2.0、Node.js 18、Jest 28</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/04/18/lexical-react-testing-library-v13.1.0-dialog-component/">2022-04-18のJS: Lexical、React Testing Library v13.1.0、Dialog componentの作成</a></li>
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    </aside>
+</div>
+<footer>
+    <div class="page-footer">
+    <div class="copyright-footer">
+        <div class="copyright">
+            <p>JSer.info is maintained by @<a href="https://twitter.com/azu_re"
+                                              title="azu (azu_re) on Twitter">azu_re</a>.
+            </p>
+        </div>
+        <div class="cc-license">
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+                <img alt="Creative commons LICENSE"
+                     style="border-width:0"
+                     width="88"
+                     height="31"
+                     src="https://i.creativecommons.org/l/by/4.0/88x31.png"
+                     loading="lazy"></a>
+        </div>
+    </div>
+</div>
+
+</footer>
+<style>
+    @media screen and (max-width: 1000px) and (max-height: 800px) {
+        .ping-show-button {
+            display: none !important;
+        }
+    }
+
+    .ping-show-button {
+        color: #000000;
+        z-index: 100;
+        position: fixed;
+        bottom: 0;
+        right: 10px;
+        padding: 1em 3em;
+        background-color: #ffffff;
+        border: 1px solid #868686;
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+        font-size: 12px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<a 
+    class="ping-show-button"
+    href="https://join.slack.com/t/jserinfo/shared_invite/zt-g2shzp7o-f_tj6OaphCAFw5Qlt2Jw0A"
+    ga-on="click"
+    ga-event-category="Slack"
+    ga-event-action="click"
+><img src="/public/svg/slack.svg" alt="" width="28" height="28" /><span>JSer.info Slackに参加する</span></a>
+
+</body>
+</html>

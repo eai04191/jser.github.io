@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>2022-01-11のJS: グローバルなサイトにおけるCore Web Vitals、2021 JavaScript Rising Stars、colors.jsのインシデント対応 - JSer.info</title>
+    <meta name="description" content="JSer.info #574 - Improving Core Web Vitals, A Smashing Magazine Case Studyという記事では、Smashing MagazineのCore Web Vitals(LCP/FID/CLS)のスコアをどのように改善していったかについて書かれています。">
+    
+    <meta name="keywords" content="performance,browser,CSS,Tools,debug" />
+    
+    <meta name="author" content="azu">
+    
+      <meta content="2022-01-11T12:01:30+09:00" property="article:published_time">
+      <meta content="https://jser.info/about/" property="article:author">
+    
+    
+      
+      <meta content="JSer" property="article:section">
+      
+    
+    
+      
+      <meta content="performance" property="article:tag">
+      
+      <meta content="browser" property="article:tag">
+      
+      <meta content="CSS" property="article:tag">
+      
+      <meta content="Tools" property="article:tag">
+      
+      <meta content="debug" property="article:tag">
+      
+    
+
+    
+    <link rel="canonical" href="https://jser.info/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://jser.info/rss/">
+    <link rel="apple-touch-icon" sizes="57x57" href="/public/img/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/public/img/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/public/img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/img/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/public/img/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/public/img/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/public/img/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/public/img/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/img/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/public/img/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/public/img/favicon/favicon-16x16.png" sizes="16x16">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/public/img/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Preload Hero Images: Improves LCP-->
+    <link rel="preload" as="image" href="/public/img/logo.png"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/index.css">
+    <!-- JavaScript -->
+    <script src="/public/js/switch-alt-link.js" async defer></script>
+    <!-- Open graph tags -->
+<meta name="twitter:card" content="JSer.info #574 - Improving Core Web Vitals, A Smashing Magazine Case Studyという記事では、Smashing MagazineのCore Web Vitals(LCP/FID/CLS)のスコアをどのように改善していったかについて書かれています。" />
+<meta name="twitter:site" content="@jser_info" />
+
+
+<meta property="og:title" content="2022-01-11のJS: グローバルなサイトにおけるCore Web Vitals、2021 JavaScript Rising Stars、colors.jsのインシデント対応">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jser.info/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">
+<meta property="og:image" content="https://jser.info/media/logo.png">
+
+<meta property="og:description" content="JSer.info #574 - Improving Core Web Vitals, A Smashing Magazine Case Studyという記事では、Smashing MagazineのCore Web Vitals(LCP/FID/CLS)のスコアをどのように改善していったかについて書かれています。">
+<meta property="og:site_name" content="JSer.info">
+
+
+
+<meta property="article:published_time" content="2022-01-11T12:01:30+09:00">
+
+<meta property="og:see_also" content="https://jser.info/2022/06/06/angular-14-cypress-10-vue-2.7-a/">
+
+<meta property="og:see_also" content="https://jser.info/2022/06/01/lerna-5.0.0-typescript-4.7-wireit/">
+
+<meta property="og:see_also" content="https://jser.info/2022/05/24/deno-1.22-storybook-6.5webpack-lazy-compilation-next.js-layouts-rfc/">
+
+
+
+
+
+<meta property="article:tag" content="performance">
+
+<meta property="article:tag" content="browser">
+
+<meta property="article:tag" content="CSS">
+
+<meta property="article:tag" content="Tools">
+
+<meta property="article:tag" content="debug">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q66PHF829Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q66PHF829Y');
+</script>
+
+</head>
+
+
+<body>
+<header>
+    <a href="https://github.com/jser/jser.github.io" class="github-ribbon">
+        <img style="position: absolute; top: 0; right: 0; border: 0;"
+             src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+             alt="Fork me on GitHub"
+             data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
+    <div class="global-header">
+    <h1 class="site-title"><a href="/" title="JSer.info">
+        <!-- 3:1 aspect ratio-->
+        <img
+            alt=""
+            src="/public/img/logo.png"
+            width="518"
+            height="172"
+    /></a></h1>
+    <h2 class="site-description">JavaScriptの最新情報を紹介する週刊ブログ</h2>
+    <nav class="lang-menu">
+        <ul>
+            <li><a href="/" data-alt-href="/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">日本語</a></li>
+            <li><a href="/ko/" data-alt-href="/ko/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">한국어</a></li>
+        </ul>
+        
+        <div>
+            <p>リアルタイム版は<a href="https://realtime.jser.info/" title="Realtime JSer.info">Realtime JSer.info</a></p>
+        </div>
+        
+    </nav>
+</div>
+
+</header>
+<div class="content-wrapper">
+    <article>
+        <div class="page-content">
+            <div class="post">
+    <header>
+        <div class="post-header">
+            <h1><a href="/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">2022-01-11のJS: グローバルなサイトにおけるCore Web Vitals、2021 JavaScript Rising Stars、colors.jsのインシデント対応</a></h1>
+
+            <div class="pre-post-toolbar">
+                <span class="post-date">2022年01月11日</span>
+                
+                <span class="svg-icon"><img src="/public/svg/github.svg" alt="" /></span>
+                <a class="btn edit-on-github" href="https://github.com/jser/jser.github.io/edit/develop/_i18n/ja/_posts/2022/2022-01-11-core-web-vitals-2021-javascript-rising-stars-colors.js.md"><span class="edit-on-github-label"></span>Edit on GitHub</a>
+                <span class="svg-icon"><img src="/public/svg/git.svg" alt="" /></span>
+                <a class="btn revision-on-github" href="https://github.com/jser/jser.github.io/commits/develop/_i18n/ja/_posts/2022/2022-01-11-core-web-vitals-2021-javascript-rising-stars-colors.js.md"><span class="revision-on-github-label"></span>編集履歴を見る</a>
+            </div>
+
+        </div>
+        <div class="social-buttons">
+            <ul>
+    <!-- Feedly -->
+    
+    <!-- Twitter -->
+    <li class="twitter-button-item">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="jser_info">Tweet</a>
+    </li>
+    
+    <!-- Hatena -->
+    <li>
+        <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-url="https://jser.info/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">
+            <img src="https://b.st-hatena.com/images/entry-button/button-only.gif" alt="はてなブックマークに追加" width="20" height="20" style="border: none">
+        </a>
+    </li>
+    
+    <!-- Pocket -->
+    <li>
+        <a href="https://getpocket.com/save" class="pocket-btn" data-lang="ja" data-save-url="https://jser.info/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/"
+            data-pocket-count="horizontal" data-pocket-align="left">Pocket</a>
+    </li>
+</ul>
+
+        </div>
+    </header>
+    <article class="post-content">
+        <p>JSer.info #574 - <a href="https://www.smashingmagazine.com/2021/12/core-web-vitals-case-study-smashing-magazine/">Improving Core Web Vitals, A Smashing Magazine Case Study</a>という記事では、Smashing MagazineのCore Web Vitals(LCP/FID/CLS)のスコアをどのように改善していったかについて書かれています。</p>
+
+<p>Core Web VitalsはGoogle検索の指標に使われています。<br>
+また、Google Search Consoleでは、グローバルなChromeユーザーからのCore Web Vitalsのスコアを確認でき、この値は<a href="https://developers.google.com/web/tools/chrome-user-experience-report">Chrome User Experience Report </a>のデータを元にしています。</p>
+
+<p>サイトのLCPの改善をしたところ、なぜかGoogle Search Consoleの結果は改善されなかったという問題を掘り下げていったという内容になっています。<br>
+Smashing Magazineはグローバルなサイトであり、Google Search Consoleのスコアはグローバルなデータをまとめたものとなるため、ユーザーが多い特定の国でスコアが悪いと、全体のスコアにも影響がある点について書かれています。</p>
+
+<hr>
+
+<p>2021年のGitHub Star数でのランキングをまとめたJavaScript Rising Starsが公開されています。</p>
+
+<ul>
+<li><a href="https://risingstars.js.org/2021/en">2021 JavaScript Rising Stars</a></li>
+<li>日本語訳: <a href="https://risingstars.js.org/2021/ja">JavaScript ライジングスター 2021</a></li>
+</ul>
+
+<p>GitHub Starは実際の人気の利用数とは必ずしも一致はしませんが、<br>
+それぞれのカテゴリごとに解説も書かれているので読んでみるとよさそうです。</p>
+
+<hr>
+
+<p><a href="https://zenn.dev/azu/articles/d56615b2e11ad1">colorsなどのnpmパッケージに悪意あるコードが含まれている問題について</a>という記事では、<code>colors</code>というnpmパッケージにDoS攻撃のコードが含まれたものがpatchバージョンとして公開された問題について書かれています。</p>
+
+<p>npmでは<a href="https://web.archive.org/web/20160323000303/https://medium.com/@azerbike/i-ve-just-liberated-my-modules-9045c06be67c">leftpadと呼ばれる問題</a>をきっかけに、パッケージのOwnerであっても公開後24時間経過するとその公開を取り下げるには問い合わせが必要になっています。(細かな条件が2020年に追加されています)</p>
+
+<ul>
+<li><a href="https://blog.npmjs.org/post/141905368000/changes-to-npms-unpublish-policy">npm Blog Archive: changes to npm’s unpublish policy</a></li>
+<li><a href="https://blog.npmjs.org/post/190553543620/changes-to-npmunpublish-policy-january-2020.html">npm Blog Archive: Changes to npm Unpublish Policy - January 2020</a></li>
+</ul>
+
+<p>また、npmやyarnなどでロックファイルがデフォルトとなっているため、既存のプロジェクトではバージョンが固定でき、影響範囲がleftpadの時に比べて小さくなっています。<br>
+一方で、<code>colors</code>を新規インストールした際やアップデートした際に、問題があるpatchバージョンがsemverによって選択されてしまう問題があります。</p>
+
+<p>この記事では、npmパッケージの直接的/間接的依存のチェック方法やYarnの<code>resolutions</code>、npm 8.3+の<code>overrides</code>での明示的なバージョン固定方法について書かれています。</p>
+
+<p>現時点(2022-01-11)では、問題のあった<code>colors</code>のバージョンはnpmによって取り消されています。<br>
+今後のcolors.jsについては、次のIssueを参照してください。</p>
+
+<ul>
+<li><a href="https://github.com/Marak/colors.js/issues/317">(Semi-Official) Status Update · Issue #317 · Marak/colors.js</a></li>
+</ul>
+
+<hr>
+
+<h1 class="site-genre">ヘッドライン</h1>
+
+<hr>
+
+<h2 id="january-10th-2022-security-releases-node-js">January 10th 2022 Security Releases | Node.js</h2>
+
+<p><a href="https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/" title="January 10th 2022 Security Releases | Node.js">nodejs.org/en/blog/vulnerability/jan-2022-security-releases/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">node.js</span> <span class="jser-tag">security</span> <span class="jser-tag">ReleaseNote</span></p></p>
+
+<p>Node.jsのセキュリティ修正が12.x, 14.x, 16.x, 17.x それぞれでリリースされている。<br>
+Subject Alternative Name (SAN)に関する修正が2つ含まれていて、この修正は<code>--security-revert</code>フラグで戻すことができる。<br>
+また、Relative Distinguished Namesの扱いに関する修正や<code>console.table</code>のPrototype Pollutionの修正が含まれている</p>
+
+<ul>
+<li><a href="https://github.com/nodejs/node/releases/tag/v14.18.3" title="Release 2022-01-10, Version 14.18.3 &amp;amp;#039;Fermium&amp;amp;#039; (LTS), @richardlau · nodejs/node">Release 2022-01-10, Version 14.18.3 &#039;Fermium&#039; (LTS), @richardlau · nodejs/node</a></li>
+</ul>
+
+<hr>
+
+<h2 id="chromium-blog-chrome-98-beta-color-gradient-vector-fonts-region-capture-origin-trial-and-more">Chromium Blog: Chrome 98 Beta: Color Gradient Vector Fonts, Region Capture Origin Trial, and More</h2>
+
+<p><a href="https://blog.chromium.org/2022/01/chrome-98-beta-color-gradient-vector.html" title="Chromium Blog: Chrome 98 Beta: Color Gradient Vector Fonts, Region Capture Origin Trial, and More">blog.chromium.org/2022/01/chrome-98-beta-color-gradient-vector.html</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">Chrome</span> <span class="jser-tag">ReleaseNote</span></p></p>
+
+<p>Chrome 98 betaリリース。<br>
+COLRv1 Color Gradient Vector Fontsのサポート、Chromeのバージョン100をテストできるフラグの追加。<br>
+Origin Trialとして、Region Captureの追加。<br>
+その他では、<code>contains-intrinsic-size: auto</code>のサポート、<code>AudioContext.outputLatency</code>のサポート、<code>color-scheme</code>での<code>only</code>のサポート。<br>
+<code>structuredClone()</code>のサポート、SubresourcesからPrivate Networkへのアクセス時にPreflight Requestが求められるように変更など</p>
+
+<hr>
+
+<h1 class="site-genre">アーティクル</h1>
+
+<hr>
+
+<h2 id="improving-core-web-vitals-a-smashing-magazine-case-study">Improving Core Web Vitals, A Smashing Magazine Case Study</h2>
+
+<p><a href="https://www.smashingmagazine.com/2021/12/core-web-vitals-case-study-smashing-magazine/" title="Improving Core Web Vitals, A Smashing Magazine Case Study">www.smashingmagazine.com/2021/12/core-web-vitals-case-study-smashing-magazine/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">performance</span> <span class="jser-tag">article</span></p></p>
+
+<p>Core Web Vitalsの改善とCrUXのメトリクスを掘り下げた記事。<br>
+LCPなどを改善したが、CrUXのデータが改善されなかった点を掘り下げていき、特定地域のデータによって統計データが歪んでいたことを特定した方法について。<br>
+CDNがカバーしきれてない地域などが問題となっていたため、<code>SaveData</code>ヘッダと<code>prefers-reduced-data</code>を元にWeb Fontのロードを減らした話。</p>
+
+<hr>
+
+<h2 id="2021-javascript-rising-stars">2021 JavaScript Rising Stars</h2>
+
+<p><a href="https://risingstars.js.org/2021/en" title="2021 JavaScript Rising Stars">risingstars.js.org/2021/en</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">JavaScript</span> <span class="jser-tag">library</span> <span class="jser-tag">Tools</span> <span class="jser-tag">article</span> <span class="jser-tag">Github</span></p></p>
+
+<p>JavaScript関係のツールやライブラリなどの2021年のGitHub Starでのランキング。<br>
+各カテゴリごとのランキングやコメントも合わせて紹介されている。</p>
+
+<ul>
+<li><a href="https://risingstars.js.org/2021/ja" title="JavaScript ライジングスター 2021">JavaScript ライジングスター 2021</a></li>
+</ul>
+
+<hr>
+
+<h2 id="container-queries-12-days-of-web">Container Queries | 12 Days of Web</h2>
+
+<p><a href="https://12daysofweb.dev/2021/container-queries/" title="Container Queries | 12 Days of Web">12daysofweb.dev/2021/container-queries/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">CSS</span> <span class="jser-tag">article</span></p></p>
+
+<p>CSS Container queryの定義、利用方法、ユースケースについて</p>
+
+<hr>
+
+<h2 id="introducing-fuite-a-tool-for-finding-memory-leaks-in-web-apps-read-the-tea-leaves">Introducing fuite: a tool for finding memory leaks in web apps | Read the Tea Leaves</h2>
+
+<p><a href="https://nolanlawson.com/2021/12/17/introducing-fuite-a-tool-for-finding-memory-leaks-in-web-apps/" title="Introducing fuite: a tool for finding memory leaks in web apps | Read the Tea Leaves">nolanlawson.com/2021/12/17/introducing-fuite-a-tool-for-finding-memory-leaks-in-web-apps/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">browser</span> <span class="jser-tag">debug</span> <span class="jser-tag">article</span> <span class="jser-tag">Tools</span></p></p>
+
+<p>fuiteというメモリリークのデバッグツールについて。<br>
+Puppeteerを使ってシナリオベースの操作をし、指定回数繰り返した結果のメモリリークを確認できる。<br>
+実行時にBreak Pointを貼ってブラウザの処理を止め、Chrome DevToolsと接続して開発者ツールによってデバッグができる。</p>
+
+<ul>
+<li><a href="https://github.com/nolanlawson/fuite" title="nolanlawson/fuite: A tool for finding memory leaks in web apps">nolanlawson/fuite: A tool for finding memory leaks in web apps</a></li>
+<li><a href="https://nolanlawson.com/2020/02/19/fixing-memory-leaks-in-web-applications/" title="Fixing memory leaks in web applications | Read the Tea Leaves">Fixing memory leaks in web applications | Read the Tea Leaves</a></li>
+<li><a href="https://www.youtube.com/watch?v=H0BHL2lo89M" title="Debugging a memory leak with fuite - YouTube">Debugging a memory leak with fuite - YouTube</a></li>
+</ul>
+
+<hr>
+
+<h2 id="web-performance-calendar-js-self-profiling-api-in-practice">Web Performance Calendar » JS Self-Profiling API In Practice</h2>
+
+<p><a href="https://calendar.perfplanet.com/2021/js-self-profiling-api-in-practice/" title="Web Performance Calendar » JS Self-Profiling API In Practice">calendar.perfplanet.com/2021/js-self-profiling-api-in-practice/</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">JavaScript</span> <span class="jser-tag">performance</span> <span class="jser-tag">article</span></p></p>
+
+<p>JavaScript Self-Profiling APIについての解説記事。<br>
+サンプリングされたプロファイルを取るAPIとなっていて、RUMのような実際のエンドユーザーでの実行結果を取得できる。<br>
+Document Policyでの有効化、APIの使い方、ユースケース、プロファイルのデータ形式と取得データの制限などについて。<br>
+CORSに対応していないCross-Origin ScriptsのJavaScript関数は、プロファイル上では見えないことやJS以外のデータがプロファイルに入らない点などについて。</p>
+
+<ul>
+<li><a href="https://github.com/WICG/js-self-profiling" title="WICG/js-self-profiling: Proposal for a programmable JS profiling API for collecting JS profiles from real end-user environments">WICG/js-self-profiling: Proposal for a programmable JS profiling API for collecting JS profiles from real end-user environments</a></li>
+</ul>
+
+<hr>
+
+<h2 id="frontend-web-performance-the-essentials-0-by-matthew-costello-dec-2021-medium">Frontend Web Performance: The Essentials [0] | by Matthew Costello | Dec, 2021 | Medium</h2>
+
+<p><a href="https://medium.com/@matthew.costello/frontend-web-performance-the-essentials-0-61fea500b180" title="Frontend Web Performance: The Essentials \[0\] | by Matthew Costello | Dec, 2021 | Medium">medium.com/@matthew.costello/frontend-web-performance-the-essentials-0-61fea500b180</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">browser</span> <span class="jser-tag">performance</span> <span class="jser-tag">debug</span> <span class="jser-tag">article</span></p></p>
+
+<p>ウェブパフォーマンスやブラウザのレンダリングについての記事。<br>
+Chrome開発者ツールでLayout, Paint, Compositeとはどのようなレンダリングステップで行われているのかみていく記事。<br>
+CSS Animationを例に、Chrome開発者ツールでそれぞれのレンダリングステップを可視化する方法について書かれている</p>
+
+<hr>
+
+<h2 id="colors-npm">colorsなどのnpmパッケージに悪意あるコードが含まれている問題について</h2>
+
+<p><a href="https://zenn.dev/azu/articles/d56615b2e11ad1" title="colorsなどのnpmパッケージに悪意あるコードが含まれている問題について">zenn.dev/azu/articles/d56615b2e11ad1</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">npm</span> <span class="jser-tag">security</span> <span class="jser-tag">article</span></p></p>
+
+<p>colors.jsにDoS攻撃のコードを入れたものがpublishされていた問題について。<br>
+npmパッケージの直接的/間接的依存のチェック方法やYarnの<code>resolutions</code>、npm 8.3+の<code>overrides</code>でのバージョン固定方法について。</p>
+
+<hr>
+
+<h1 class="site-genre">スライド、動画関係</h1>
+
+<hr>
+
+<h2 id="shiguredo-media-processors-media-processors">shiguredo/media-processors: Media Processors</h2>
+
+<p><a href="https://github.com/shiguredo/media-processors" title="shiguredo/media-processors: Media Processors">github.com/shiguredo/media-processors</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">JavaScript</span> <span class="jser-tag">browser</span> <span class="jser-tag">video</span> <span class="jser-tag">audio</span> <span class="jser-tag">library</span></p></p>
+
+<p>背景ぼかしやノイズ抑制など処理をブラウザで行うライブラリ</p>
+
+<hr>
+
+<h1 class="site-genre">サイト、サービス、ドキュメント</h1>
+
+<hr>
+
+<h2 id="mozilla-glean-modern-cross-platform-telemetry">mozilla/glean: Modern cross-platform telemetry</h2>
+
+<p><a href="https://github.com/mozilla/glean" title="mozilla/glean: Modern cross-platform telemetry">github.com/mozilla/glean</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">kotlin</span> <span class="jser-tag">swift</span> <span class="jser-tag">python</span> <span class="jser-tag">node.js</span> <span class="jser-tag">library</span> <span class="jser-tag">performance</span> <span class="jser-tag">Mozilla</span> <span class="jser-tag">Rust</span></p></p>
+
+<p>Rust/Kotlin/Swift/Python/JavaScript(ブラウザとブラウザ拡張とNode.js)/Qtに対応したクロスプラットフォームなTelemetry SDK</p>
+
+<hr>
+
+<h1 class="site-genre">ソフトウェア、ツール、ライブラリ関係</h1>
+
+<hr>
+
+<h2 id="antoinew-luge-luge">AntoineW/luge: Luge</h2>
+
+<p><a href="https://github.com/AntoineW/luge" title="AntoineW/luge: Luge">github.com/AntoineW/luge</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">CSS</span> <span class="jser-tag">JavaScript</span> <span class="jser-tag">library</span> <span class="jser-tag">animation</span></p></p>
+
+<p>HTMLに属性を指定することでアニメーションできるライブラリ</p>
+
+<hr>
+
+<h1 class="site-genre">書籍関係</h1>
+
+<hr>
+
+<h2 id="new-javascript-features-javascript-for-impatient-programmers-es2022-edition">New JavaScript features • JavaScript for impatient programmers (ES2022 edition)</h2>
+
+<p><a href="https://exploringjs.com/impatient-js/ch_new-javascript-features.html#new-in-es2022" title="New JavaScript features • JavaScript for impatient programmers (ES2022 edition)">exploringjs.com/impatient-js/ch_new-javascript-features.html#new-in-es2022</a><br>
+<p class="jser-tags jser-tag-icon"><span class="jser-tag">ECMAScript</span> <span class="jser-tag">book</span></p></p>
+
+<p>JavaScript for impatient programmers (ES2022 edition)リリース。<br>
+ES2022のPrivate/Public Fields、Top-level await、Error Cause。<br>
+ArrayとStringの<code>.at()</code>メソッド、RegExp match indices、<code>Object.hasOwn()</code>メソッドについて追加されている。</p>
+
+<hr>
+
+    </article>
+
+    <div class="post-post-toolbar">
+        <span class="svg-icon"><img src="/public/svg/github.svg" alt="" /></span>
+        <a class="btn edit-on-github"
+            href="https://github.com/jser/jser.github.io/edit/develop/_i18n/ja/_posts/2022/2022-01-11-core-web-vitals-2021-javascript-rising-stars-colors.js.md"><span
+                class="edit-on-github-label"></span>この記事へ修正リクエストをする</a>
+        <nav>
+            <span class="svg-icon"><img src="/public/svg/slack.svg" alt="" /></span>
+            <a class="btn"
+                href="https://join.slack.com/t/jserinfo/shared_invite/zt-g2shzp7o-f_tj6OaphCAFw5Qlt2Jw0A"><span
+                    class="join-to-slack"></span>JSer.info Slackに参加する</a>
+        </nav>
+        
+        <nav>
+            <span class="svg-icon"><img src="/public/svg/favorite.svg" alt="" /></span>
+            <span>JSer.infoへ記事を紹介したい場合は<a href="https://jser.info/support/">Pingで紹介</a></span>
+        </nav>
+        
+        <nav class="tags" id="js-post-tags"
+            data-post-tags='["performance","browser","CSS","Tools","debug"]'>
+            <span><span class="svg-icon"><img src="/public/svg/tag.svg"
+                        alt="" /></span>タグ:</span>
+            <ul>
+                
+                <li>performance</li>
+                
+                <li>browser</li>
+                
+                <li>CSS</li>
+                
+                <li>Tools</li>
+                
+                <li>debug</li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="social-buttons post-content">
+    <ul>
+    <!-- Feedly -->
+    
+    <!-- Twitter -->
+    <li class="twitter-button-item">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="jser_info">Tweet</a>
+    </li>
+    
+    <!-- Hatena -->
+    <li>
+        <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-url="https://jser.info/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/">
+            <img src="https://b.st-hatena.com/images/entry-button/button-only.gif" alt="はてなブックマークに追加" width="20" height="20" style="border: none">
+        </a>
+    </li>
+    
+    <!-- Pocket -->
+    <li>
+        <a href="https://getpocket.com/save" class="pocket-btn" data-lang="ja" data-save-url="https://jser.info/2022/01/11/core-web-vitals-2021-javascript-rising-stars-colors.js/"
+            data-pocket-count="horizontal" data-pocket-align="left">Pocket</a>
+    </li>
+</ul>
+
+
+    <iframe src="https://github.com/sponsors/azu/card" title="Sponsor azu" height="200" width="600" style="border: 0;"
+        loading="lazy"></iframe>
+</div>
+<div class="disqus-embed" id="js-disqus-embed">
+    <button class="comment-button" id="js-comment-button">コメントを表示</button>
+</div>
+<script async type="text/javascript" src="/public/js/show-disqus.js"></script>
+<script>
+    (function (w, d) {
+        var s, e = d.getElementsByTagName("script")[0],
+            a = function (u, f) {
+                if (!d.getElementById(f)) {
+                    s = d.createElement("script");
+                    s.async = true;
+                    s.src = u;
+                    e.parentNode.insertBefore(s, e);
+                }
+            };
+        a("https://b.st-hatena.com/js/bookmark_button_wo_al.js");
+        a("https://platform.twitter.com/widgets.js");
+        a("https://widgets.getpocket.com/v1/j/btn.js?v=1");
+    })(window, document);
+</script>
+<div class="social-buttons post-content">
+    <h3 class="sponsors-title">JSer.info Sponsors</h3>
+
+<p class="sponsors-description">
+
+    <b>JSer.info Sponsors</b>は<a href="https://github.com/sponsors/azu" aria-label="Sponsor @azu on GitHub">GitHub Sponsors</a>としてJSer.infoを支援してくれているひとたちです。
+
+</p>
+<div class="sponsors-list">
+    <!-- Sponsor for https://github.com/sponsors/azu -->
+    <div class="sponsors-listItem">
+        <a href="https://twitter.com/cybozu" title="Cybozu, Inc." target="_blank" rel="noopener">
+            <img src="https://github.com/cybozu-sponsorship.png" alt="" width="64" height="64" loading="lazy"/>
+        </a>
+    </div>
+</div>
+
+</div>
+
+        </div>
+    </article>
+    <aside>
+        <div class="page-sidebar">
+    <div class="profile">
+        <a href="https://twitter.com/azu_re" title="Twitter: azu_re">
+            <img src="/public/img/azu.png" alt=""></a>
+
+        <h2><a href="https://twitter.com/azu_re">azu</a></h2>
+    </div>
+    
+    <div class="social-icons">
+        <a class="social-icon__twitter" href="https://twitter.com/jser_info" title="Twitter">
+            <img src="/public/svg/twitter.svg" alt=""
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__github" href="https://github.com/jser" title="GitHub">
+            <img src="/public/svg/github.svg" alt=""
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__rss" href="https://jser.info/rss/" title="RSS Feed">
+            <img src="/public/svg/feed.svg" alt="" width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+        <a class="social-icon__feedly" href='https://feedly.com/i/subscription/feed%2Fhttps://jser.info/rss/'
+           target='blank'>
+            <img id='feedlyFollow'
+                 src='https://s3.feedly.com/img/follows/feedly-follow-square-flat-green_2x.png'
+                 alt=''
+                 width='28'
+                 height='28'
+                 loading="lazy">
+        </a>
+    </div>
+    
+    <div class="slack-bar">
+        <a class="social-icon__slack"
+           href='https://get.slack.help/hc/ja/articles/218688467-Slack-%E3%81%AB-RSS-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%89%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'
+           target='blank'>
+            <img src="/public/svg/slack.svg" alt="" width="50" height="50" loading="lazy"/>
+            SlackにRSSを追加する
+        </a>
+    </div>
+    
+    <nav>
+        <div class="search-bar">
+            <div class="search-and-submit">
+                <form class="search-box" method="get" action="https://www.google.co.jp/search">
+                    <input type="search" name="q" placeholder="Enter Search"/>
+                    <input type="hidden" name="q" value="site:jser.info">
+                    <button type="submit">
+                        <span class="drawic drawic-search"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="side-menu">
+            <h1>ページ</h1>
+            <ul>
+                <li><a class="page-link" href="https://jser.info/about/">JSer.infoについて</a></li>
+                <li><a class="page-link" href="https://jser.info/support/">Support</a></li>
+                <li><a class="github-button" href="https://github.com/sponsors/azu" data-icon="octicon-heart"
+                       data-size="large"
+                       aria-label="Sponsor @azu on GitHub">GitHub Sponsors</a></li>
+                <script async defer src="https://buttons.github.io/buttons.js"></script>
+            </ul>
+        </div>
+        <div class="side-menu">
+            <h1>最近の投稿</h1>
+            <ul>
+                
+                
+                <li><a class="page-link" href="/2022/06/06/angular-14-cypress-10-vue-2.7-a/">2022-06-06のJS: Angular 14、Cypress 10、Vue 2.7 α</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/06/01/lerna-5.0.0-typescript-4.7-wireit/">2022-06-01のJS: Lerna 5.0.0、TypeScript 4.7、wireit</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/24/deno-1.22-storybook-6.5webpack-lazy-compilation-next.js-layouts-rfc/">2022-05-24のJS: Deno 1.22、Storybook 6.5(webpack Lazy Compilation)、Next.js Layouts RFC</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/17/solid-v1.4.0-playwright-v1.22.0-safari-15.5/">2022-05-17のJS: Solid v1.4.0、playwright v1.22.0、Safari 15.5</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/11/node-v18.1.0node-test-state-of-css-2022-performance-insights/">2022-05-11のJS: Node v18.1.0(node --test)、State of CSS 2022、Performance insights</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/05/03/node.js-12eol-pnpm-v7.0.0-mocha-v10.0.0-cypress-9.6.0/">2022-05-03のJS: Node.js 12はEOLとなりサポート終了、pnpm v7.0.0、Mocha v10.0.0、Cypress 9.6.0</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/04/26/redux-v4.2.0-node.js-18-jest-28/">2022-04-26のJS: Redux v4.2.0、Node.js 18、Jest 28</a></li>
+                
+                
+                
+                <li><a class="page-link" href="/2022/04/18/lexical-react-testing-library-v13.1.0-dialog-component/">2022-04-18のJS: Lexical、React Testing Library v13.1.0、Dialog componentの作成</a></li>
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    </aside>
+</div>
+<footer>
+    <div class="page-footer">
+    <div class="copyright-footer">
+        <div class="copyright">
+            <p>JSer.info is maintained by @<a href="https://twitter.com/azu_re"
+                                              title="azu (azu_re) on Twitter">azu_re</a>.
+            </p>
+        </div>
+        <div class="cc-license">
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+                <img alt="Creative commons LICENSE"
+                     style="border-width:0"
+                     width="88"
+                     height="31"
+                     src="https://i.creativecommons.org/l/by/4.0/88x31.png"
+                     loading="lazy"></a>
+        </div>
+    </div>
+</div>
+
+</footer>
+<style>
+    @media screen and (max-width: 1000px) and (max-height: 800px) {
+        .ping-show-button {
+            display: none !important;
+        }
+    }
+
+    .ping-show-button {
+        color: #000000;
+        z-index: 100;
+        position: fixed;
+        bottom: 0;
+        right: 10px;
+        padding: 1em 3em;
+        background-color: #ffffff;
+        border: 1px solid #868686;
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+        font-size: 12px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<a 
+    class="ping-show-button"
+    href="https://join.slack.com/t/jserinfo/shared_invite/zt-g2shzp7o-f_tj6OaphCAFw5Qlt2Jw0A"
+    ga-on="click"
+    ga-event-category="Slack"
+    ga-event-action="click"
+><img src="/public/svg/slack.svg" alt="" width="28" height="28" /><span>JSer.info Slackに参加する</span></a>
+
+</body>
+</html>
